@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'subscription.apps.SubscriptionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,10 +77,15 @@ WSGI_APPLICATION = 'stripe_fee.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': 'db',
+        #'NAME': os.environ.get('MYSQL_DATABASE'),
+        #'USER': os.environ.get('MYSQL_USER'),
+        #'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        #'HOST': 'db',
+        #'PORT': 3306
+        'NAME': 'stripe',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '172.17.0.1',
         'PORT': 3306
     }
 }
