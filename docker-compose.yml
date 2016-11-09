@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    ports:
+      - 3306:3006
+    env_file: .env
+  web:
+    build: .
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    working_dir: /app
+    links:
+      - db:db
+    depends_on:
+      - db
+    env_file: .env
