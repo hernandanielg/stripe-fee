@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.http import JsonResponse
 from .models import User
-import stripe
 
-stripe.api_key = 'sk_test_xJNBke1EQ4YPIrZo81lwTSjo'
+import stripe
 
 
 class HomeView(View):
@@ -15,25 +13,56 @@ class HomeView(View):
 
 class SubscribeView(View):
 
+    stripe.api_key = 'sk_test_xJNBke1EQ4YPIrZo81lwTSjo'
+
     def get(self, request):
         return redirect('home')
 
     def post(self, request):
-        name = request.POST['name']
-        email = request.POST['email']
-        card_number = request.POST['card-number']
         cvc = request.POST['cvc']
+        card_number = request.POST['card-number']
         expiration_date = request.POST['expiration-date'].split('-')
         exp_year = expiration_date[0]
         exp_month = expiration_date[1]
 
-        data = {}
-        data['name'] = name
-        data['email'] = email
-        data['card-number'] = card_number
-        data['exp_month'] = exp_month
-        data['exp_year'] = exp_year
-        data['cvc'] = cvc
+        try:
+            token = stripe.Token.create(
+                card={
+                    "number": card_number,
+                    "exp_month": exp_month,
+                    "exp_year": exp_year,
+                    "cvc": cvc
+                }
+            )
+        except stripe.error.CardError as e:
+            body = e.json_body
+            error = body['error']
+            return render(request, 'subscription/home.html', {"error": error['message']})
 
-        return JsonResponse(data)
+        name = request.POST['name']
+        email = request.POST['email']
+
+        print('pasaba por aquí %s' % token.id);
+
+        try:
+            customer = stripe.Customer.create(
+                description=name,
+                email=email,
+                source=token.id
+            )
+        except Exception as e:
+            body = e.json_body
+            error = body['error']
+            return render(request, 'subscription/home.html',{"error": error['message']})
+
+        print('look how far I am')
+
+        user = User()
+        user.name = name
+        user.email = email
+        user.id_stripe = customer.id
+        user.save()
+
+        return render(request, 'subscription/home.html', {"success": "You've been suscribed!"})
+
 
