@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'stripe_fee.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': 'db',
+        'NAME': 'stripe',
+        'USER': 'root',
+        'PASSWORD': '' ,
+        'HOST': '172.17.0.1',
         'PORT': 3306
     }
 }
@@ -118,6 +118,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+# Stripe Key
+STRIPE_API_KEY = 'sk_test_xJNBke1EQ4YPIrZo81lwTSjo'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
