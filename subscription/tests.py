@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from .models import User
 
@@ -13,7 +14,7 @@ class UserTestCase(TestCase):
     def test_user_is_registered(self):
         self.assertIs(User.is_registered(self.user.email),True)
 
-class FunctionalTestCase(TestCase):
+class FunctionalTestCase(LiveServerTestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
