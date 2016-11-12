@@ -6,9 +6,9 @@ class User(models.Model):
     id_stripe = models.CharField(max_length=50,default='')
 
     def is_registered(email):
-       return User.objects.filter(email=email).exists()
+       return User.objects.filter(email=email)
 
 class Payment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     amount = models.IntegerField()
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)

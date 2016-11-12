@@ -1,5 +1,4 @@
 {% extends 'subscription/base.html' %}
-{% load widget_tweaks %}
 
 {% block body%}
 <div class="container">
@@ -28,17 +27,12 @@
 	<div class="col-md-4"></div>
 </div>
 
-{% if success %}
-	<div class="alert alert-success alert-dismissible text-center" role="success">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<strong>Success!</strong> {{ success }}.
-	</div>
-{% endif %}
-
-{% if error %}
-	<div class="alert alert-danger alert-dismissible text-center" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<strong>Error!</strong> {{ error }}.
+{% if message %}
+	<div class="alert alert-dismissible text-center
+		alert-{% if error == True %}danger{% else %}success{% endif %}">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span></button>
+		{{ message }}
 	</div>
 {% endif %}
 

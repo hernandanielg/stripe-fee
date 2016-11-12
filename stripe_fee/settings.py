@@ -120,8 +120,9 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Stripe Key
+# Stripe
 STRIPE_API_KEY = 'sk_test_xJNBke1EQ4YPIrZo81lwTSjo'
+STRIPE_PLAN_ID = 'monthly-plan'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
