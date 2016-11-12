@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'stripe_fee.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stripe',
-        'USER': 'root',
-        'PASSWORD': '' ,
-        'HOST': '172.17.0.1',
+        'NAME': os.environ.get('MYSQL_DATABASE'),
+ +      'USER': os.environ.get('MYSQL_USER'),
+ +      'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        'HOST': 'db',
         'PORT': 3306
     }
 }
