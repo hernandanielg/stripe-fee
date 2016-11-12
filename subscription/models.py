@@ -6,7 +6,7 @@ class User(models.Model):
     id_stripe = models.CharField(max_length=50,default='')
 
     def is_registered(email):
-       return User.objects.filter(email=email)
+       return User.objects.filter(email=email).exists()
 
 class Payment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

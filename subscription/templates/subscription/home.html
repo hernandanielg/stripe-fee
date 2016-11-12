@@ -19,7 +19,7 @@
 			</ul>
 			<div class="panel-footer">
 				<button class="btn btn-lg btn-block btn-success" data-toggle="modal"
-					data-target="#modal">Shut up and <br> take my money!</a>
+					data-target="#modal" id="btn-signup">Shut up and <br> take my money!</a>
 				</div>
 			</div>
 			<!-- End Panel -->
@@ -29,7 +29,7 @@
 
 {% if message %}
 	<div class="alert alert-dismissible text-center
-		alert-{% if error == True %}danger{% else %}success{% endif %}">
+		alert-{% if error == True %}danger{% else %}success{% endif %}" id="message-alert">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span></button>
 		{{ message }}
